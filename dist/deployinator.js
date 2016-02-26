@@ -68,15 +68,11 @@ module.exports = Deploy = (function() {
   };
 
   Deploy.prototype._getKey = function() {
-    var cmd, useSync;
-    this.key = null;
+    var cmd, sha;
     cmd = new git.Command('./', 'rev-parse', [], 'HEAD');
-    cmd.exec(this._generateKey.bind(this), useSync = true);
+    sha = cmd.execSync();
+    this.key = "" + this.manifest + ":" + (sha.slice(0, 7));
     return this.key;
-  };
-
-  Deploy.prototype._generateKey = function(_error, sha, _stderr) {
-    return this.key = "" + this.manifest + ":" + (sha.slice(0, 7));
   };
 
   Deploy.prototype._currentKey = function() {

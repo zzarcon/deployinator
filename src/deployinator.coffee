@@ -30,7 +30,7 @@ module.exports = class Deploy
 
   upload: (value) ->
     key = @_getKey()
-    console.log('deployinator upload key', key)
+
     new RSVP.Promise(@_uploadIfNotAlreadyInManifest(key, value).bind(@))
 
   listUploads: (limit = @manifestSize) ->
@@ -89,12 +89,7 @@ module.exports = class Deploy
   _getKey: ->
     cmd = new git.Command('./', 'rev-parse', [], 'HEAD')
     sha = cmd.execSync()
-
-    console.log('deployinator _getKey sha', sha)
-
     @key = "#{@manifest}:#{sha.slice(0,7)}"
-    
-    console.log('deployinator _getKey key', @key)
 
     @key
 
