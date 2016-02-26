@@ -30,6 +30,7 @@ module.exports = class Deploy
 
   upload: (value) ->
     key = @_getKey()
+    console.log('deployinator upload key', key)
     new RSVP.Promise(@_uploadIfNotAlreadyInManifest(key, value).bind(@))
 
   listUploads: (limit = @manifestSize) ->
@@ -86,24 +87,16 @@ module.exports = class Deploy
   # Internal: Gets the current git-sha and sets it as the key property on this
   # {Object}
   _getKey: ->
-    @key = null
-    cmd  = new git.Command('./', 'rev-parse', [], 'HEAD')
+    cmd = new git.Command('./', 'rev-parse', [], 'HEAD')
+    sha = cmd.execSync()
 
-    cmd.exec(@_generateKey.bind(@), useSync = true)
+    console.log('deployinator _getKey sha', sha)
+
+    @key = "#{@manifest}:#{sha.slice(0,7)}"
+    
+    console.log('deployinator _getKey key', @key)
 
     @key
-
-  # Internal: Callback function that gets called when git commands execs. Git
-  # command gets executed with the 'Gitty' node-module. See
-  # https://github.com/gordonwritescode/gitty for details.
-  #
-  # _error - Error that gets passed when gitty call fails
-  # sha - stdout message that gets passed when git-rev-Command succeeds
-  # _stderr - stderr message that gets passen when git-rev command fails
-  #
-  # Returns a {String}.
-  _generateKey: (_error, sha, _stderr) ->
-    @key = "#{@manifest}:#{sha.slice(0,7)}"
 
   _currentKey: ->
     @currentKey = @currentKey ? "#{@manifest}:current"
