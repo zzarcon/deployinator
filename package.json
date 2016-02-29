@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "dist/deployinator.js",
   "scripts": {
-    "test": "make test"
+    "test": "make test",
+    "dist": "rm -rf dist && broccoli build dist && git add . && npm version patch --force && git push --tags && git push"
   },
   "devDependencies": {
     "broccoli": "^0.12.3",

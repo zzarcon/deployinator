@@ -4,4 +4,4 @@
 
 # Build 
 
-`$ rm -rf dist && broccoli build development`
+`$ npm run dist`
