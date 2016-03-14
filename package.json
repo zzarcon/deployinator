@@ -20,7 +20,8 @@
   "dependencies": {
     "gitty": "3.3.2",
     "rsvp": "^3.0.9",
-    "then-redis": "1.3.0"
+    "then-redis": "1.3.0",
+    "redis": "^0.12.1"
   },
   "description": "Lightning fast deployments of JavaScript Apps",
   "directories": {
