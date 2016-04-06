@@ -4,10 +4,12 @@
   "main": "dist/deployinator.js",
   "scripts": {
     "test": "make test",
-    "dist": "rm -rf dist && broccoli build dist && git add . && npm version patch --force && git push --tags && git push"
+    "build": "rm -rf dist && broccoli build dist ",
+    "dist": "npm run build && git add . && npm version patch --force && git push --tags && git push"
   },
   "devDependencies": {
     "broccoli": "^0.12.3",
+    "broccoli-cli": "^1.0.0",
     "broccoli-coffee": "^0.1.0",
     "broccoli-coffeelint": "git://github.com/runtastic/broccoli-coffeelint.git",
     "broccoli-export-tree": "^0.3.2",

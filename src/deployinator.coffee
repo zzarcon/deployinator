@@ -28,9 +28,9 @@ module.exports = class Deploy
     @manifest     = options.manifest
     @manifestSize = options.manifestSize
 
-  upload: (value) ->
-    key = @_getKey()
-
+  upload: (value, key) ->
+    key = key || @_getKey()
+    
     new RSVP.Promise(@_uploadIfNotAlreadyInManifest(key, value).bind(@))
 
   listUploads: (limit = @manifestSize) ->
