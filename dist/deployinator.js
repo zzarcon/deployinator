@@ -16,7 +16,6 @@ module.exports = Deploy = (function() {
 
   Deploy.prototype.upload = function(value, key) {
     key = key || this._getKey();
-    console.log('deployinator upload', key);
     return new RSVP.Promise(this._uploadIfNotAlreadyInManifest(key, value).bind(this));
   };
 
